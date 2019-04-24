@@ -1,31 +1,31 @@
 <?php
-// Include config file
+// Inkluder config
 require_once "config.php";
  
-// Define variables and initialize with empty values
+// Definer variabler og start med tomme værdier
 $mail = $kode = $tjek_kode = "";
 $mail_err = $kode_err = $tjek_kode_err = "";
  
-// Processing form data when form is submitted
+// Behandling af formulardata, når formularen indsendes
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Validate username
+    // Valider brugernavn
     if(empty(trim($_POST["mail"]))){
         $mail_err = "Indtast email.";
     } else{
-        // Prepare a select statement
+        // forbered en "SELECT" erklæring
         $sql = "SELECT id FROM bruger WHERE mail = ?";
         
         if($stmt = $mysqli->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
+            // Bind variabler til den forberedte sætning som parametre
             $stmt->bind_param("s", $param_mail);
             
-            // Set parameters
+            // Sæt parametre
             $param_mail = trim($_POST["mail"]);
             
-            // Attempt to execute the prepared statement
+            // Forsøg på at gennemføre den udarbejdede erklæring
             if($stmt->execute()){
-                // store result
+                // gem resultat
                 $stmt->store_result();
                 
                 if($stmt->num_rows == 1){
@@ -38,11 +38,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
         }
          
-        // Close statement
+        // luk sætning
         $stmt->close();
     }
  
-    // Validate password
+    // Valider kodeord
     if(empty(trim($_POST["kode"]))){
         $kode_err = "Indtast kodeord.";     
     } elseif(strlen(trim($_POST["kode"])) < 6){
@@ -51,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $kode = trim($_POST["kode"]);
     }
     
-    // Validate confirm password
+    // Valider bekæft kodeord
     if(empty(trim($_POST["tjek_kode"]))){
         $tjek_kode_err = "Venligst bekræft koden.";     
     } else{
@@ -61,34 +61,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
     
-    // Check input errors before inserting in database
+    // Kontroller indgangsfejl, inden du indsætter i databasen
     if(empty($mail_err) && empty($kode_err) && empty($tjek_kode_err)){
         
-        // Prepare an insert statement
+        // Forbered en "INSERT" erklæring
         $sql = "INSERT INTO bruger (mail, kode) VALUES (?, ?)";
          
         if($stmt = $mysqli->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
+            // Bind variabler til den forberedte sætning som parametre
             $stmt->bind_param("ss", $param_mail, $param_kode);
             
-            // Set parameters
+            // Sæt parametre
             $param_mail = $mail;
-            $param_kode = password_hash($kode, PASSWORD_DEFAULT); // Creates a password hash
+            $param_kode = password_hash($kode, PASSWORD_DEFAULT); // Skaber password hash
             
-            // Attempt to execute the prepared statement
+            // Forsøg på at gennemføre den udarbejdede erklæring
             if($stmt->execute()){
-                // Redirect to login page
+                // Videresend til login side
                 header("location: login.php");
             } else{
                 echo "Noget gik galt. Prøv igen senere";
             }
         }
          
-        // Close statement
+        // luk sætning
         $stmt->close();
     }
     
-    // Close connection
+    // Sluk forbindelsen
     $mysqli->close();
 }
 ?>
@@ -107,22 +107,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   height: 100%;
 }
 .bg {
-  /* The image used */
+  /* billede */
   background-image: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-601821927-1519164092.jpg");
 
-  /* Full height */
+  /* Fuld højde */
   height: 100%;
 
-  /* Center and scale the image nicely */
+  /* Center og skalering */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .card {
-        margin: 0 auto; /* Added */
-        float: none; /* Added */
-        margin-bottom: 10px; /* Added */
+        margin: 0 auto; 
+        float: none; 
+        margin-bottom: 10px;
 }
 
 
@@ -156,11 +156,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
   </nav>
 
-<!-- image -->
+<!-- billede -->
 
 <div class="bg" style="background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-601821927-1519164092.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
 
-  <!-- Page Content -->
+  <!-- siden -->
 <div class="container">
 <div class="card bg-secondary" style="width:400px">
       <div class="card-body text-center">

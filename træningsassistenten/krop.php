@@ -1,8 +1,8 @@
 <?php
-// Initialize the session
+// Initialiser sessionen
 session_start();
  
-// Check if the user is logged in, if not then redirect him to login page
+// Kontroller om brugeren er logget ind, hvis ikke, så omdirigere han til login side
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
@@ -59,10 +59,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       </div>
     </div>
   </nav>
-
-
-
-<!-- Or let Bootstrap automatically handle the layout -->
 <div class="row">
 <div class="col">
 <div class="container">

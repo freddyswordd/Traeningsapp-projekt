@@ -1,24 +1,24 @@
 <?php
-// Initialize the session
+// Initialiser sessionen
 session_start();
  
-// Check if the user is logged in, otherwise redirect to login page
+// Kontroller om brugeren er logget ind, ellers omdirigere til login side
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
  
-// Include config file
+// indkluder config
 require_once "config.php";
  
-// Define variables and initialize with empty values
+// Definer variabler og start med tomme værdier
 $nyt_pass = $tjek_pass = "";
 $nyt_pass_err = $tjek_pass_err = "";
  
-// Processing form data when form is submitted
+// Behandling af formulardata, når formularen indsendes
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Validate new password
+    // Validér ny adgangskode
     if(empty(trim($_POST["nyt_pass"]))){
         $nyt_pass_err = "Indtast nyt kodeord.";     
     } elseif(strlen(trim($_POST["nyt_pass"])) < 6){
@@ -27,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $nyt_pass = trim($_POST["nyt_pass"]);
     }
     
-    // Validate confirm password
+    // Tjek bekræft adgangskode
     if(empty(trim($_POST["tjek_pass"]))){
         $tjek_pass_err = "Venligst tjek kodeord.";
     } else{
@@ -37,22 +37,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
         
-    // Check input errors before updating the database
+    // Kontrollér inputfejl, inden databasen opdateres
     if(empty($nyt_pass_err) && empty($tjek_pass_err)){
-        // Prepare an update statement
+        // Forbered "UPDATE" erklæring
         $sql = "UPDATE bruger SET kode = ? WHERE id = ?";
         
         if($stmt = $mysqli->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
+            // Bind variabler til den forberedte sætning som parametre
             $stmt->bind_param("si", $param_kode, $param_id);
             
-            // Set parameters
+            // Sæt parametre
             $param_kode = password_hash($nyt_pass, PASSWORD_DEFAULT);
             $param_id = $_SESSION["id"];
             
-            // Attempt to execute the prepared statement
+            // Forsøg på at gennemføre den udarbejdede erklæring
             if($stmt->execute()){
-                // Password updated successfully. Destroy the session, and redirect to login page
+                // Adgangskode opdateret med succes. Ødelæg sessionen og omdirigere til login side
                 session_destroy();
                 header("location: login.php");
                 exit();
@@ -61,11 +61,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
         }
         
-        // Close statement
+        // luk erklæring
         $stmt->close();
     }
     
-    // Close connection
+    // luk forbindelse
     $mysqli->close();
 }
 ?>
@@ -85,13 +85,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 .bg {
-  /* The image used */
+  /* billede */
   background-image: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-601821927-1519164092.jpg");
 
-  /* Full height */
+  /* Fuld højde */
   height: 100%;
 
-  /* Center and scale the image nicely */
+  /* Center og skaler */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -100,9 +100,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
 .card {
-        margin: 0 auto; /* Added */
-        float: none; /* Added */
-        margin-bottom: 10px; /* Added */
+        margin: 0 auto; 
+        float: none; 
+        margin-bottom: 10px; 
 }
 
 
@@ -143,7 +143,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   </nav>
 
 
-<!-- image -->
+<!-- billede -->
 
 <div class="bg" style="background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-601821927-1519164092.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
 

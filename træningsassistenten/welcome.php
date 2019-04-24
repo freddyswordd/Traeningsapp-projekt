@@ -1,8 +1,8 @@
 <?php
-// Initialize the session
+// Initialiser sessionen
 session_start();
  
-// Check if the user is logged in, if not then redirect him to login page
+// Kontroller om brugeren er logget ind, hvis ikke, så omdirigere han til login side
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
@@ -24,13 +24,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 .bg {
-  /* The image used */
+  /* billede */
   background-image: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-601821927-1519164092.jpg");
 
-  /* Full height */
+  /* fuld højde */
   height: 100%;
 
-  /* Center and scale the image nicely */
+  /* Center og skaler billede */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -40,7 +40,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 .row {
   background-color: rgba(169, 169, 169, 0.4);
 
-  /* Full height */
+  /* Fuld højde */
   height: 100%;
 
   padding-left: 80px;
@@ -81,10 +81,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </div>
   </nav>
 
-<!-- image -->
+<!-- billede -->
 <div class="bg" style="background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-601821927-1519164092.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
 
-<!-- Or let Bootstrap automatically handle the layout -->
 <div class="row">
   <div class="col">
 

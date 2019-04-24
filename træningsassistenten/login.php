@@ -1,5 +1,5 @@
 <?php
-// Initialize the session
+// Initialiser sæssionen 
 session_start();
  
 
@@ -8,70 +8,70 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     exit;
 }
 
-// Include config file
+// Inkluder config
 require_once "config.php";
 
-// Define variables and initialize with empty values
+// Definer variabler og start med tomme værdier
 $mail = $kode = "";
 $mail_err = $kode_err = "";
 
-// Processing form data when form is submitted
+// Behandling af formulardata, når formularen indsendes
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Check if username is empty
+    // Tjek og brugernavn er tom
     if(empty(trim($_POST["mail"]))){
         $mail_err = "Indtast mail.";
     } else{
         $mail = trim($_POST["mail"]);
     }
     
-    // Check if password is empty
+    // Tjek om kode er tom
     if(empty(trim($_POST["kode"]))){
         $kode_err = "Indtast kode.";
     } else{
         $kode = trim($_POST["kode"]);
     }
  
-   // Validate credentials
+   // Validér legitimationsoplysninger
    if(empty($mail_err) && empty($kode_err)){
-    // Prepare a select statement
+    // Forbered en "SELECT" erklæring
     $sql = "SELECT id, mail, kode FROM bruger WHERE mail = ?";
         
     if($stmt = $mysqli->prepare($sql)){
-        // Bind variables to the prepared statement as parameters
+        // Bind variabler til den forberedte sætning som parametre
         $stmt->bind_param("s", $param_mail);
         
-        // Set parameters
+        // Sæt parametre
         $param_mail = $mail;
         
-        // Attempt to execute the prepared statement
+        // Forsøg på at gennemføre den udarbejdede erklæring
         if($stmt->execute()){
-            // Store result
+            // Gem resultat
             $stmt->store_result();
                             
-                // Check if mail exists, if yes then verify password
+                // Kontroller, om mailen findes, hvis ja, bekræft adgangskoden
                 if($stmt->num_rows == 1){                    
-                    // Bind result variables
+                    // Bind resultatvariabler
                     $stmt->bind_result($id, $mail, $hashed_kode);
                     if($stmt->fetch()){
                         if(password_verify($kode, $hashed_kode)){
-                            // Password is correct, so start a new session
+                            // Adgangskoden er korrekt, starter ny session
                             session_start();
                             
-                            // Store data in session variables
+                            // Gem data i session variabler
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["mail"] = $mail;                            
                             
-                            // Redirect user to welcome page
+                            // Omdiriger bruger til velkomst side
                             header("location: welcome.php");
                         } else{
-                            // Display an error message if password is not valid
+                            // Vis en fejlmeddelelse, hvis adgangskoden ikke er gyldig
                             $kode_err = "Koden du indtastede passer ikke til email";
                         }
                     }
                 } else{
-                    // Display an error message if username doesn't exist
+                    // Vis en fejlmeddelelse, hvis brugernavnet ikke findes
                     $mail_err = "Ingen bruger fundet med denne mail.";
                 }
             } else{
@@ -79,11 +79,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
         }
         
-        // Close statement
+        // Luk sætning
         $stmt->close();
     }
     
-    // Close connection
+    // Sluk forbindelse
     $mysqli->close();
 }
 ?>
@@ -102,22 +102,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   height: 100%;
 }
 .bg {
-  /* The image used */
+  /* billede */
   background-image: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-601821927-1519164092.jpg");
 
-  /* Full height */
+  /* Fuld højde */
   height: 100%;
 
-  /* Center and scale the image nicely */
+  /* Center og skalering */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .card {
-        margin: 0 auto; /* Added */
-        float: none; /* Added */
-        margin-bottom: 10px; /* Added */
+        margin: 0 auto; 
+        float: none; 
+        margin-bottom: 10px; 
 }
 
 
@@ -150,11 +150,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
   </nav>
 
-<!-- image -->
+<!-- billede -->
 
 <div class="bg" style="background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-601821927-1519164092.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
 
-  <!-- Page Content -->
+  <!-- Siden -->
 <div class="container">
 <div class="card bg-secondary" style="width:400px">
       <div class="card-body text-center">
