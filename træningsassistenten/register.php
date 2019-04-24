@@ -126,6 +126,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 
+
     </style>
 </head>
 
@@ -135,7 +136,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Trænings<br>Assistenten</a>
+      <a class="navbar-brand" href="index.html">Trænings<br>Assistenten</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -146,14 +147,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Hjælp</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Kontakt</a>
+          <li class="nav-item active">
+            <a class="nav-link" href="login.php">Login
+            </a>
           </li>
         </ul>
       </div>
@@ -174,7 +170,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group <?php echo (!empty($mail_err)) ? 'has-error' : ''; ?>">
                 <h4>Mail</h4>
-                <input type="text" name="mail" class="form-control" value="<?php echo $mail; ?>">
+                <input type="email" name="mail" class="form-control" value="<?php echo $mail; ?>">
                 <span class="help-block"><?php echo $mail_err; ?></span>
             </div>    
             <div class="form-group <?php echo (!empty($kode_err)) ? 'has-error' : ''; ?>">
@@ -188,7 +184,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="help-block"><?php echo $tjek_kode_err; ?></span>
             </div>
             <div class="form-group">
-                <input type="registrer" class="btn btn-primary" value="Submit">
+                <input type="submit" class="btn btn-primary" value="Registrer">
                 <input type="reset" class="btn btn-primary" value="Reset">
             </div>
             <p>Har du allerede en bruger? <a href="login.php">Login her</a>.</p>

@@ -130,25 +130,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Trænings<br>Assistenten</a>
+      <a class="navbar-brand" href="index.html">Trænings<br>Assistenten</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Hjem
+            <a class="nav-link" href="index.html">Hjem
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Hjælp</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Kontakt</a>
+          <li class="nav-item active">
+            <a class="nav-link" href="login.php">Login
+            </a>
           </li>
         </ul>
       </div>
@@ -168,12 +163,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <p>Venligst skriv login information.</p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group <?php echo (!empty($mail_err)) ? 'has-error' : ''; ?>">
-            <label>Mail</label>
+            <h4>Mail</h4>
             <input type="text" name="mail" class="form-control" value="<?php echo $mail; ?>">
             <span class="help-block"><?php echo $mail_err; ?></span>
         </div>    
         <div class="form-group <?php echo (!empty($kode_err)) ? 'has-error' : ''; ?>">
-            <label>Kode</label>
+            <h4>Kode</h4>
             <input type="password" name="kode" class="form-control">
             <span class="help-block"><?php echo $kode_err; ?></span>
         </div>
